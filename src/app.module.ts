@@ -12,8 +12,19 @@ import { ProxyModule } from './proxy/proxy.module';
     ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([
       {
-        ttl: 1000 * 60, // Time-to-live in milliseconds (60 seconds)
+        name: 'short',
+        ttl: 1000, // Time-to-live in milliseconds (1 second)
+        limit: 10, // Maximum number of requests within the TTL context
+      },
+      {
+        name: 'medium',
+        ttl: 1000 * 60, // Time-to-live in milliseconds (1 minute)
         limit: 100, // Maximum number of requests within the TTL context
+      },
+      {
+        name: 'long',
+        ttl: 1000 * 60 * 15, // Time-to-live in milliseconds (15 minutes)
+        limit: 1000, // Maximum number of requests within the TTL context
       },
     ]),
     ProxyModule,
